@@ -1,0 +1,85 @@
+.TH "mandown" 1 "2024-04-03" "1.0" "mandown"
+.PP
+.SS NAME
+.PP
+\fBmandown\fP - a utility for processing data in various formats.
+.PP
+.SS SYNOPSIS
+.PP
+\fBmandown\fP [\fB-t\fP title] [\fB-s\fP section] [\fB-d\fP date] [\fB-v\fP version] [\fB-n\fP name] FILE
+.PP
+\fBmandown\fP [\fB-t\fP title] [\fB-s\fP section] [\fB-d\fP date] [\fB-v\fP version] [\fB-n\fP name] < FILE
+.PP
+.SS DESCRIPTION
+.PP
+\fBmandown\fP is a utility for converting markdown files into manpages. 
+.PP
+.SS FRONTMATTER
+.PP
+\fBmandown\fP optionally supports markdown frontmatter for setting header values.
+.PP
+If present, \fBFrontmatter MUST appear at the top of the markdown file\fP in order to be parsed.
+.PP
+The frontmatter fields map onto the OPTIONS below. OPTIONS override frontmatter.
+.PP
+\fIEXAMPLE\fP
+.PP
+.EX
+---
+title: "mandown - markdown to man page"
+section: "1"
+date: "2024-04-01"
+version: "1.0"
+name: "mandown"
+---
+.EE
+.PP
+.SS OPTIONS
+.PP
+\fBNOTE: Options override frontmatter.\fP
+.PP
+ \fB-t\fP, title
+  
+  Sets the title of the document.
+.PP
+ \fB-s\fP, section
+  
+  Specifies the section number of the manual.
+.PP
+ \fB-d\fP, date
+  
+  Sets the date of the document.
+.PP
+ \fB-v\fP, version
+  
+  Specifies the version of the document.
+.PP
+ \fB-n\fP, name
+  
+  Sets the name of the manual.
+.PP
+.SS EXAMPLES
+.PP
+Convert a Markdown file to troff format, setting the title and section:
+.PP
+.EX
+mandown -t "A New Title" -s 1 input.md
+.EE
+.PP
+.SS LICENSE
+.PP
+Copyright (C) 2024 Mark Wilkerson
+.PP
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+.PP
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+.PP
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
