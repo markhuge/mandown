@@ -1,0 +1,41 @@
+name: Build Binaries
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+    name: Build on ${{ matrix.os }} for ${{ matrix.arch }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        arch: [amd64, arm64]
+        exclude:
+          - os: windows-latest
+            arch: arm64
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '^1.20'
+
+      - name: Build binary
+        run: |
+          env GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} go build -o myapp-${{ matrix.os }}-${{ matrix.arch }}
+        env:
+          matrix.goos: ${{ matrix.os == 'windows-latest' && 'windows' || matrix.os == 'ubuntu-latest' && 'linux' || 'darwin' }}
+          matrix.goarch: ${{ matrix.arch }}
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: myapp-${{ matrix.os }}-${{ matrix.arch }}
+          path: myapp-${{ matrix.os }}-${{ matrix.arch }}
+
